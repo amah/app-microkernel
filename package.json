@@ -1,0 +1,20 @@
+{
+  "name": "app-microkernel",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "build": "nx run-many -t build -p app-microkernel-spi,app-microkernel-api,app-microkernel-impl",
+    "lint": "nx run-many -t lint",
+    "test": "nx run-many -t test",
+    "release": "nx run-many -t publish -p app-microkernel-spi,app-microkernel-api,app-microkernel-impl --parallel=1",
+    "demo:dev": "npm --prefix apps/demo run dev",
+    "demo:build": "npm --prefix apps/demo run build",
+    "demo:preview": "npm --prefix apps/demo run preview"
+  },
+  "devDependencies": {
+    "@nx/devkit": "^19.0.0",
+    "@nx/js": "^19.0.0",
+    "nx": "^19.0.0",
+    "typescript": "~5.4.0"
+  }
+}

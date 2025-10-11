@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app-microkernel/spi": [
+        "../../libs/app-microkernel-spi/src/index.ts"
+      ],
+      "@app-microkernel/api": [
+        "../../libs/app-microkernel-api/src/index.ts"
+      ],
+      "@app-microkernel/impl": [
+        "../../libs/app-microkernel-impl/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ]
+}

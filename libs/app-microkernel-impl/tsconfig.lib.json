@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": []
+  },
+  "references": [
+    {
+      "path": "../app-microkernel-api/tsconfig.lib.json"
+    },
+    {
+      "path": "../app-microkernel-spi/tsconfig.lib.json"
+    }
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}

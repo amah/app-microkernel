@@ -1,0 +1,4 @@
+import type { CommandRegistry, Hooks, ViewRegistry } from '@app-microkernel/api';
+export function createHooks(): Hooks { const map = new Map<string, Set<(...a:any[])=>void>>(); return { on(e,f){ if(!map.has(e)) map.set(e,new Set()); map.get(e)!.add(f); }, off(e,f){ map.get(e)?.delete(f); }, emit(e,...a){ for(const fn of map.get(e) ?? []) fn(...a); } }; }
+export function createCommandRegistry(): CommandRegistry { const h=new Map<string,(...a:any[])=>any>(); return { register(id,fn){h.set(id,fn);}, run(id,...a){const fn=h.get(id); if(!fn) throw new Error(`Command not found: ${id}`); return fn(...a);}, has(id){return h.has(id);} }; }
+export function createViewRegistry(): ViewRegistry { const s=new Map<string,any[]>(); return { register(slot,v){ const arr=s.get(slot)??[]; arr.push(v); s.set(slot,arr); }, list(slot){ return [...(s.get(slot)??[])]; } }; }

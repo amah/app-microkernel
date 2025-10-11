@@ -1,0 +1,30 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "app-microkernel-impl",
+  "sourceRoot": "libs/app-microkernel-impl/src",
+  "projectType": "library",
+  "implicitDependencies": [
+    "app-microkernel-api",
+    "app-microkernel-spi"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/libs/app-microkernel-impl",
+        "main": "libs/app-microkernel-impl/src/index.ts",
+        "tsConfig": "libs/app-microkernel-impl/tsconfig.lib.json"
+      }
+    },
+    "publish": {
+      "executor": "@nx/js:publish",
+      "options": {
+        "packageRoot": "dist/libs/app-microkernel-impl"
+      }
+    }
+  },
+  "tags": []
+}

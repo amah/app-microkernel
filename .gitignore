@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.tmp/
+.DS_Store
+.idea/
+
+# Logs
+logs
+*.log
+
+# Nx cache
+.nx/
+
