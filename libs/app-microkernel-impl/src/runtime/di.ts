@@ -1,4 +1,4 @@
-import type { Provider, Token } from '@app-microkernel/api';
+import type { Provider, Token } from '@amk/app-microkernel-api';
 const INJECT_KEY = Symbol('di:inject');
 export function Injectable(deps: Token[] = []): ClassDecorator { return (t: any) => { (t as any)[INJECT_KEY] = deps; }; }
 export class Container {

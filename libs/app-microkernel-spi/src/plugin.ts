@@ -1,4 +1,4 @@
-import type { ActivateContext, Provider, Token } from '@app-microkernel/api';
+import type { ActivateContext, Provider, Token } from '@amk/app-microkernel-api';
 export type InitializationContext = {
   provide<T>(prov: Provider<T>): void;
   resolve<T>(token: Token<T>): T;

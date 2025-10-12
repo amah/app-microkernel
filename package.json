@@ -3,18 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build": "nx run-many -t build -p app-microkernel-spi,app-microkernel-api,app-microkernel-impl",
-    "lint": "nx run-many -t lint",
-    "test": "nx run-many -t test",
-    "release": "nx run-many -t publish -p app-microkernel-spi,app-microkernel-api,app-microkernel-impl --parallel=1",
-    "demo:dev": "npm --prefix apps/demo run dev",
-    "demo:build": "npm --prefix apps/demo run build",
-    "demo:preview": "npm --prefix apps/demo run preview"
+    "build": "bun run build:api && bun run build:spi && bun run build:impl",
+    "build:api": "tsc -p libs/app-microkernel-api/tsconfig.lib.json",
+    "build:spi": "tsc -p libs/app-microkernel-spi/tsconfig.lib.json",
+    "build:impl": "tsc -p libs/app-microkernel-impl/tsconfig.lib.json",
+    "clean": "rm -rf dist libs/*/dist",
+    "lint": "echo 'Lint not configured yet'",
+    "test": "bun test",
+    "demo:dev": "cd apps/demo && bun run dev",
+    "demo:build": "cd apps/demo && bun run build",
+    "demo:preview": "cd apps/demo && bun run preview"
   },
   "devDependencies": {
-    "@nx/devkit": "^19.0.0",
-    "@nx/js": "^19.0.0",
-    "nx": "^19.0.0",
     "typescript": "~5.4.0"
-  }
+  },
+  "workspaces": ["libs/*", "apps/*"]
 }

@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .tmp/
+tmp/
 .DS_Store
 .idea/
 
@@ -8,6 +9,6 @@ dist/
 logs
 *.log
 
-# Nx cache
-.nx/
+# Build artifacts
+*.tsbuildinfo
 

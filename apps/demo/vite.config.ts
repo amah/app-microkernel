@@ -7,9 +7,9 @@ export default defineConfig({
   server: { port: 5173 },
   resolve: {
     alias: {
-      '@app-microkernel/impl': path.resolve(__dirname, '../../libs/app-microkernel-impl/src/index.ts'),
-      '@app-microkernel/api':  path.resolve(__dirname, '../../libs/app-microkernel-api/src/index.ts'),
-      '@app-microkernel/spi':  path.resolve(__dirname, '../../libs/app-microkernel-spi/src/index.ts'),
+      '@amk/app-microkernel-impl': path.resolve(__dirname, '../../libs/app-microkernel-impl/src/index.ts'),
+      '@amk/app-microkernel-api':  path.resolve(__dirname, '../../libs/app-microkernel-api/src/index.ts'),
+      '@amk/app-microkernel-spi':  path.resolve(__dirname, '../../libs/app-microkernel-spi/src/index.ts'),
     }
   }
 });

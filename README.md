@@ -24,13 +24,13 @@ libs/
 
 ### Packages at a glance
 
-- **@app-microkernel/api**  
+- **@amk/app-microkernel-api**  
   Public contracts for tokens, providers, registries, manifests, host interfaces.
 
-- **@app-microkernel/spi**  
+- **@amk/app-microkernel-spi**
   Plugin authoring API: `PluginModule` with lifecycle (`initialize`, `activate`, `deactivate`) and `InitializationContext`.
 
-- **@app-microkernel/impl**  
+- **@amk/app-microkernel-impl**
   Implementation details: hierarchical DI container, command/view/hook registries, root-only plugin loader, and host/child orchestration.
 
 ---
@@ -41,7 +41,7 @@ libs/
   `initialize()` for **registrations** (services, views, commands), then `activate()` for **startup** (timers, sockets, long-running tasks).
 
 - **Strict API/SPI separation**  
-  Consumers and hosts rely on `@app-microkernel/api`; plugin authors rely on `@app-microkernel/spi`. Only the runtime uses `@app-microkernel/impl`.
+Consumers and hosts rely on `@amk/app-microkernel-api`; plugin authors rely on `@amk/app-microkernel-spi`. Only the runtime uses `@amk/app-microkernel-impl`.
 
 - **Hierarchical containers**  
   Only the **root container** can **load modules** (dynamic import). **Child containers** can only **bootstrap** already-loaded plugins into their own scope (tenant/workspace context).
@@ -164,7 +164,7 @@ ctx.hooks.on('host:activated', () => ctx.commands.run('demo.sayHello', 'from hoo
 **Root**:
 
 ```ts
-import { Host } from '@app-microkernel/impl';
+import { Host } from '@amk/app-microkernel-impl';
 
 const host = new Host([
   { provide: Logger, useClass: Logger },
@@ -193,8 +193,8 @@ await child.bootstrap('all'); // or ['demo']
 
 ```ts
 // my-plugin/index.ts
-import type { PluginModule } from '@app-microkernel/spi';
-import type { Provider } from '@app-microkernel/api';
+import type { PluginModule } from '@amk/app-microkernel-spi';
+import type { Provider } from '@amk/app-microkernel-api';
 
 class Logger { info(...a:any[]){ console.log('[info]', ...a); } }
 
@@ -247,39 +247,57 @@ The demo shows:
 **Run it:**
 
 ```bash
-npm install
-cd apps/demo
-npm install
-npm run dev
+bun install
+bun run demo:dev
 ```
 
-The demo uses `vite.resolve.alias` to point `@app-microkernel/{api,spi,impl}` to the local libs’ `src/index.ts` so you can iterate without building/publishing.
+The demo uses `vite.resolve.alias` to point `@amk/app-microkernel-api`, `@amk/app-microkernel-spi`, and `@amk/app-microkernel-impl` to the local libs' `src/index.ts` so you can iterate without building/publishing.
 
 ---
 
-## Build & publish (Nx)
+## Build & publish (Bun)
 
-> This repository ships Nx config files, but not `node_modules`.  
-> If you intend to use Nx tasks locally, install the dev deps at root:
+This project uses **Bun** as the package manager and build tool.
+
+**Install dependencies:**
 
 ```bash
-npm i -D nx @nx/js @nx/devkit typescript
+bun install
 ```
 
 **Build all libs:**
 
 ```bash
-npm run build
+bun run build
+```
+
+This builds the libraries in dependency order:
+1. `@amk/app-microkernel-api` (no dependencies)
+2. `@amk/app-microkernel-spi` (depends on api)
+3. `@amk/app-microkernel-impl` (depends on api and spi)
+
+**Build individual libraries:**
+
+```bash
+bun run build:api
+bun run build:spi
+bun run build:impl
+```
+
+**Clean build artifacts:**
+
+```bash
+bun run clean
 ```
 
 **Publish (example):**
 
 ```bash
-# adjust registry & versions as needed
-npm run release
+# Publish to npm registry
+cd libs/app-microkernel-api && npm publish
+cd ../app-microkernel-spi && npm publish
+cd ../app-microkernel-impl && npm publish
 ```
-
-Each lib is configured as **publishable** with `@nx/js:tsc` and `@nx/js:publish`.
 
 ---
 

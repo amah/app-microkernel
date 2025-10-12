@@ -1,12 +1,22 @@
 {
-  "name": "@app-microkernel/impl",
+  "name": "@amk/app-microkernel-impl",
   "version": "0.1.0",
   "type": "module",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.lib.json",
+    "clean": "rm -rf dist"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "dependencies": {
-    "@app-microkernel/api": "^0.1.0",
-    "@app-microkernel/spi": "^0.1.0"
+    "@amk/app-microkernel-api": "workspace:*",
+    "@amk/app-microkernel-spi": "workspace:*"
   }
 }

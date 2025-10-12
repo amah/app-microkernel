@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
-import { Host } from '@app-microkernel/impl';
-import type { Provider } from '@app-microkernel/api';
-import type { PluginModule } from '@app-microkernel/spi';
+import { Host } from '@amk/app-microkernel-impl';
+import type { Provider } from '@amk/app-microkernel-api';
+import type { PluginModule } from '@amk/app-microkernel-spi';
 
 // Example tokens/services for the demo
 const TOKENS = { Logger: Symbol('Logger'), ApiBaseUrl: Symbol('ApiBaseUrl') } as const;

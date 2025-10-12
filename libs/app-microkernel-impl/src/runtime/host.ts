@@ -1,26 +1,26 @@
-import type { ActivateContext, IChildHost, IHost, PluginManifest, Provider } from '@app-microkernel/api';
+import type { ActivateContext, IChildHost, IHost, PluginManifest, Provider } from '@amk/app-microkernel-api';
 import { Container } from './di';
 import { createCommandRegistry, createHooks, createViewRegistry } from './registries';
 import { PluginRegistry } from './loader';
-import type { InitializationContext } from '@app-microkernel/spi';
+import type { InitializationContext } from '@amk/app-microkernel-spi';
 
 function createInitContext(container: Container, env?: Record<string, any>): InitializationContext {
   const commands = createCommandRegistry();
   const views = createViewRegistry();
   const hooks = createHooks();
   return {
-    provide: (prov) => container.provide(prov),
-    resolve: (t) => container.resolve(t),
-    commands: { register: (id, h) => commands.register(id, h) },
-    views: { register: (slot, vf) => views.register(slot, vf) },
-    hooks: { on: (ev, fn) => hooks.on(ev, fn), emit: (ev, ...a) => hooks.emit(ev, ...a) },
+    provide: (prov: Provider) => container.provide(prov),
+    resolve: <T>(t: any) => container.resolve(t),
+    commands: { register: (id: string, h: (...a: any[]) => any) => commands.register(id, h) },
+    views: { register: (slot: string, vf: any) => views.register(slot, vf) },
+    hooks: { on: (ev: string, fn: (...a: any[]) => void) => hooks.on(ev, fn), emit: (ev: string, ...a: any[]) => hooks.emit(ev, ...a) },
     env,
   };
 }
 
 function createActivateContext(container: Container, env?: Record<string, any>): ActivateContext {
   return {
-    resolve: (t) => container.resolve(t),
+    resolve: <T>(t: any) => container.resolve(t),
     commands: createCommandRegistry(),
     views: createViewRegistry(),
     hooks: createHooks(),

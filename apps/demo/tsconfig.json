@@ -15,13 +15,13 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@app-microkernel/spi": [
-        "../../libs/app-microkernel-spi/src/index.ts"
-      ],
-      "@app-microkernel/api": [
+      "@amk/app-microkernel-api": [
         "../../libs/app-microkernel-api/src/index.ts"
       ],
-      "@app-microkernel/impl": [
+      "@amk/app-microkernel-spi": [
+        "../../libs/app-microkernel-spi/src/index.ts"
+      ],
+      "@amk/app-microkernel-impl": [
         "../../libs/app-microkernel-impl/src/index.ts"
       ]
     }

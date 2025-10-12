@@ -1,5 +1,5 @@
-import type { PluginManifest } from '@app-microkernel/api';
-import type { PluginModule } from '@app-microkernel/spi';
+import type { PluginManifest } from '@amk/app-microkernel-api';
+import type { PluginModule } from '@amk/app-microkernel-spi';
 class PluginRecord { constructor(public manifest: PluginManifest, public module?: PluginModule) {} }
 export class PluginRegistry {
   private byName = new Map<string, PluginRecord>();
@@ -13,4 +13,4 @@ export class PluginRegistry {
   }
   getModulesInOrder(names: string[]|'all'='all'){ const t = names==='all' ? [...this.byName.keys()] : names; const order = topoSortByDeps(t.map(n=>this.byName.get(n)!.manifest)); return order.map(m=>this.byName.get(m.name)!.module!).filter(Boolean); }
 }
-function topoSortByDeps(items: PluginManifest[]): PluginManifest[]{ const idx=new Map(items.map(i=>[i.name,i] as const)); const seen=new Set<string>(); const out: PluginManifest[]=[]; const visit=(m:PluginManifest)=>{ if(seen.has(m.name)) return; (m.dependsOn??[]).forEach(n=>{ const d=idx.get(n); if(d) visit(d); }); seen.add(m.name); out.push(m); }; items.forEach(visit); return out; }
+function topoSortByDeps(items: PluginManifest[]): PluginManifest[]{ const idx=new Map(items.map(i=>[i.name,i] as const)); const seen=new Set<string>(); const out: PluginManifest[]=[]; const visit=(m:PluginManifest)=>{ if(seen.has(m.name)) return; (m.dependsOn??[]).forEach((n: string)=>{ const d=idx.get(n); if(d) visit(d); }); seen.add(m.name); out.push(m); }; items.forEach(visit); return out; }
