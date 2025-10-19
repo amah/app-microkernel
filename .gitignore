@@ -9,6 +9,14 @@ tmp/
 logs
 *.log
 
+# Cache directories
+.nx/
+
 # Build artifacts
 *.tsbuildinfo
+libs/*/dist/
+libs/*/src/*.js
+libs/*/src/*.d.ts
+libs/*/src/*.map
+*.txt
 
