@@ -18,5 +18,6 @@ libs/*/dist/
 libs/*/src/*.js
 libs/*/src/*.d.ts
 libs/*/src/*.map
+libs/*/tsconfig.json
 *.txt
 
